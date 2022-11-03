@@ -14,12 +14,18 @@
     ```
     
 4. Copy the resulting JSON into `schemas.json`
-5. Start the application
+5. Publish a year document to node
+    ```bash
+    npm run year
+    ```
+    
+6. Copy the resulting JSON into `year.json`
+7. Start the application
     ```bash
     npm start
     ```
     
-6. Open the webbrowser at http://localhost:8080
+8. Open the webbrowser at http://localhost:8080
 
 ## License
 
