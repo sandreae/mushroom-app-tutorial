@@ -19,37 +19,172 @@ type Field = {
   type: string;
 };
 
-const MUSHROOM_FIELDS: Field[] = [
+const YEAR_FIELDS: Field[] = [
   {
-    name: 'title',
-    type: 'str',
+    name: 'year',
+    type: 'int',
   },
   {
-    name: 'edible',
-    type: 'bool',
+    name: 'sekki_01',
+    type: 'relation(sekki)',
   },
   {
-    name: 'latin',
-    type: 'str',
+    name: 'sekki_02',
+    type: 'relation(sekki)',
   },
   {
-    name: 'description',
-    type: 'str',
+    name: 'sekki_03',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_04',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_05',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_06',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_07',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_08',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_09',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_10',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_11',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_12',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_13',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_14',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_15',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_16',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_17',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_18',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_19',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_20',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_21',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_22',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_23',
+    type: 'relation(sekki)',
+  },
+  {
+    name: 'sekki_24',
+    type: 'relation(sekki)',
   },
 ];
 
-const FINDING_FIELDS: Field[] = [
+const SEKKI_FIELDS: Field[] = [
   {
-    name: 'blob',
+    name: 'id',
+    type: 'int',
+  },
+  {
+    name: 'name_en',
     type: 'str',
   },
   {
-    name: 'lat',
-    type: 'float',
+    name: 'name_jp',
+    type: 'str',
   },
   {
-    name: 'lon',
-    type: 'float',
+    name: 'description_en',
+    type: 'str',
+  },
+  {
+    name: 'description_jp',
+    type: 'str',
+  },
+  {
+    name: 'ko_01',
+    type: 'relation(ko)',
+  },
+  {
+    name: 'ko_02',
+    type: 'relation(ko)',
+  },
+  {
+    name: 'ko_03',
+    type: 'relation(ko)',
+  },
+];
+
+const KO_FIELDS: Field[] = [
+  {
+    name: 'id',
+    type: 'int',
+  },
+  {
+    name: 'from',
+    type: 'str',
+  },
+  {
+    name: 'to',
+    type: 'str',
+  },
+  {
+    name: 'name_en',
+    type: 'str',
+  },
+  {
+    name: 'name_jp',
+    type: 'str',
+  },
+  {
+    name: 'description_en',
+    type: 'str',
+  },
+  {
+    name: 'description_jp',
+    type: 'str',
   },
 ];
 
@@ -178,32 +313,50 @@ async function createSchema(
   return `${name}_${backlink}`;
 }
 
-async function createMushroomSchema(
+async function createYearSchema(
   client: GraphQLClient,
   keyPair: KeyPair,
+  sekkiSchemaId: string,
 ): Promise<string> {
-  const name = 'mushroom';
-  const description = 'Informations and details about mushrooms';
-  const fields = await createFields(client, keyPair, MUSHROOM_FIELDS);
+  const name = 'seventy_two_seasons_year';
+  const description = 'One year of the ancient Japanese seasonal calendar';
+  const fields_parsed: Field[] = YEAR_FIELDS.map((item) => {
+    if (item.type == 'relation(sekki)') {
+      item.type = `relation(${sekkiSchemaId})`;
+    }
+    return item;
+  });
+  const fields = await createFields(client, keyPair, fields_parsed);
   return await createSchema(client, keyPair, name, description, fields);
 }
 
-async function createFindingSchema(
+async function createSekkiSchema(
   client: GraphQLClient,
   keyPair: KeyPair,
-  mushroomSchemaId: string,
+  koSchemaId: string,
 ): Promise<string> {
-  const name = 'mushroom_finding';
-  const description = 'Picture and GPS position of a found mushroom';
+  const name = 'seventy_two_seasons_sekki';
+  const description = 'One of the 24 major divisions in the ancient Japanese seasonal calendar';
 
-  const findingFields = FINDING_FIELDS.concat([
-    {
-      name: 'mushrooms',
-      type: `relation_list(${mushroomSchemaId})`,
-    },
-  ]);
+  const fields_parsed: Field[] = SEKKI_FIELDS.map((item) => {
+    if (item.type == 'relation(ko)') {
+      item.type = `relation(${koSchemaId})`;
+    }
+    return item;
+  });
 
-  const fields = await createFields(client, keyPair, findingFields);
+  const fields = await createFields(client, keyPair, fields_parsed);
+  return await createSchema(client, keyPair, name, description, fields);
+}
+
+async function createKoSchema(
+  client: GraphQLClient,
+  keyPair: KeyPair,
+): Promise<string> {
+  const name = 'seventy_two_seasons_ko';
+  const description = 'One of the 72 minor divisions in the ancient Japanese seasonal calendar';
+
+  const fields = await createFields(client, keyPair, KO_FIELDS);
   return await createSchema(client, keyPair, name, description, fields);
 }
 
@@ -225,20 +378,18 @@ async function run(keyPair: KeyPair, endpoint: string) {
 
   const client = new GraphQLClient(endpoint);
 
-  const mushroomSchemaId = await createMushroomSchema(client, keyPair);
-  const findingSchemaId = await createFindingSchema(
-    client,
-    keyPair,
-    mushroomSchemaId,
-  );
+  const koSchemaId = await createKoSchema(client, keyPair);
+  const sekkiSchemaId = await createSekkiSchema(client, keyPair, koSchemaId);
+  const yearSchemaId = await createYearSchema(client, keyPair, sekkiSchemaId);
 
   console.log();
   console.log(
     'Next step: Create a file `./schemas.json` and paste this into it:',
   );
   console.log('{');
-  console.log(`  "MUSHROOM_SCHEMA_ID": "${mushroomSchemaId}",`);
-  console.log(`  "FINDINGS_SCHEMA_ID": "${findingSchemaId}"`);
+  console.log(`  "KO_SCHEMA_ID": "${koSchemaId}",`);
+  console.log(`  "SEKKI_SCHEMA_ID": "${sekkiSchemaId}",`);
+  console.log(`  "YEAR_SCHEMA_ID": "${yearSchemaId}"`);
   console.log('}');
 }
 
