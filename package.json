@@ -1,7 +1,7 @@
 {
-  "name": "mushroom-app-tutorial",
+  "name": "seventy-two-seasons",
   "version": "1.0.0",
-  "description": "A p2panda tutorial",
+  "description": "In ancient times the Japanese divided their year into 24 periods based on classical Chinese sources",
   "main": "src/index.tsx",
   "scripts": {
     "build": "webpack --mode production",
@@ -14,13 +14,12 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/p2panda/mushroom-app-tutorial.git"
+    "url": "git+https://github.com/sandreae/mushroom-app-tutorial"
   },
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/p2panda/mushroom-app-tutorial/issues"
+    "url": "https://github.com/sandreae/mushroom-app-tutorial/issues"
   },
-  "homepage": "https://p2panda.org",
   "dependencies": {
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
