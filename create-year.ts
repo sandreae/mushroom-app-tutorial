@@ -1,10 +1,15 @@
 import { GraphQLClient } from 'graphql-request';
-import { KeyPair, encodeOperation, signAndEncodeEntry } from 'p2panda-js';
+import {
+  KeyPair,
+  encodeOperation,
+  signAndEncodeEntry,
+  OperationFields,
+} from 'p2panda-js';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { KO_SCHEMA_ID, SEKKI_SCHEMA_ID, YEAR_SCHEMA_ID } from './schemas.json';
-import { loadKeyPair, nextArgs, publish } from './common';
-import type { Year, Sekki, Ko } from './src/types.d';
+import { loadKeyPair, nextArgs, RelationList, publish } from './common';
+import type { Sekki, Ko } from './src/types.d';
 
 // This fixes getting an ECONNREFUSED when making a request against localhost
 import { setDefaultResultOrder } from 'node:dns';
@@ -271,22 +276,25 @@ const ALL_SEKKI: Sekki[] = [
 async function createYear(
   client: GraphQLClient,
   keyPair: KeyPair,
-  year: Year,
+  year: number,
 ): Promise<string> {
-  const all_sekki = {};
-  for await (const sekki of ALL_SEKKI) {
+  const all_sekki: RelationList = [];
+
+  for (const sekki of ALL_SEKKI) {
     const documentId = await createSekki(client, keyPair, sekki);
-    const key = sekki.id < 10 ? 'sekki_0' + sekki.id : 'sekki_' + sekki.id;
-    all_sekki[key] = documentId;
+    all_sekki.push(documentId);
   }
 
   const args = await nextArgs(client, keyPair.publicKey());
+
+  const operationFields = new OperationFields({
+    year,
+  });
+  operationFields.insert('sekki', 'relation_list', all_sekki);
+
   const operation = encodeOperation({
     schemaId: YEAR_SCHEMA_ID,
-    fields: {
-      ...year,
-      ...all_sekki,
-    },
+    fields: operationFields,
   });
 
   const entry = signAndEncodeEntry(
@@ -298,7 +306,7 @@ async function createYear(
   );
 
   const { backlink } = await publish(client, entry, operation);
-  console.log(`Created Year ${year.year} ${backlink}`);
+  console.log(`Created Year ${year} ${backlink}`);
   return backlink;
 }
 
@@ -368,8 +376,7 @@ async function run(keyPair: KeyPair, endpoint: string) {
 
   const this_year = new Date().getFullYear();
 
-  const year: Year = { year: this_year };
-  const yearId = await createYear(client, keyPair, year);
+  const yearId = await createYear(client, keyPair, this_year);
 
   console.log();
   console.log('Next step: Create a file `./year.json` and paste this into it:');

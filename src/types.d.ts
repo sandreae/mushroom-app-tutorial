@@ -3,7 +3,8 @@ declare module '*.css';
 
 export type Year = {
   year: number;
-}
+  sekki: Sekki[];
+};
 
 export type Sekki = {
   id: number;

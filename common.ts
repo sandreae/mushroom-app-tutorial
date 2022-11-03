@@ -1,14 +1,7 @@
 import fs from 'fs';
 
-import yargs from 'yargs';
 import { GraphQLClient, gql } from 'graphql-request';
-import {
-  KeyPair,
-  OperationFields,
-  encodeOperation,
-  signAndEncodeEntry,
-} from 'p2panda-js';
-import { hideBin } from 'yargs/helpers';
+import { KeyPair } from 'p2panda-js';
 
 export function loadKeyPair(path: string) {
   if (!path) {
@@ -22,6 +15,9 @@ export function loadKeyPair(path: string) {
     throw new Error(`Could not load private key from ${path}`);
   }
 }
+
+export type PinnedRelationList = string[][];
+export type RelationList = string[];
 
 type NextArgs = {
   logId: string;

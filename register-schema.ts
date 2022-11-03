@@ -7,7 +7,7 @@ import {
   signAndEncodeEntry,
 } from 'p2panda-js';
 import { hideBin } from 'yargs/helpers';
-import { loadKeyPair, nextArgs, publish } from './common';
+import { loadKeyPair, nextArgs, PinnedRelationList, publish } from './common';
 
 // This fixes getting an ECONNREFUSED when making a request against localhost
 import { setDefaultResultOrder } from 'node:dns';
@@ -24,100 +24,8 @@ const YEAR_FIELDS: Field[] = [
     type: 'int',
   },
   {
-    name: 'sekki_01',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_02',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_03',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_04',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_05',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_06',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_07',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_08',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_09',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_10',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_11',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_12',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_13',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_14',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_15',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_16',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_17',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_18',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_19',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_20',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_21',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_22',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_23',
-    type: 'relation(sekki)',
-  },
-  {
-    name: 'sekki_24',
-    type: 'relation(sekki)',
+    name: 'sekki',
+    type: 'relation_list(sekki)',
   },
 ];
 
@@ -207,8 +115,6 @@ const KO_FIELDS: Field[] = [
   },
 ];
 
-type PinnedRelationList = string[][];
-
 async function createFields(
   client: GraphQLClient,
   keyPair: KeyPair,
@@ -285,8 +191,8 @@ async function createYearSchema(
   const name = 'seventy_two_seasons_year';
   const description = 'One year of the ancient Japanese seasonal calendar';
   const fields_parsed: Field[] = YEAR_FIELDS.map((item) => {
-    if (item.type == 'relation(sekki)') {
-      item.type = `relation(${sekkiSchemaId})`;
+    if (item.type == 'relation_list(sekki)') {
+      item.type = `relation_list(${sekkiSchemaId})`;
     }
     return item;
   });
