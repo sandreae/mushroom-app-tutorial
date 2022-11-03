@@ -1,7 +1,5 @@
-import fs from 'fs';
-
 import yargs from 'yargs';
-import { GraphQLClient, gql } from 'graphql-request';
+import { GraphQLClient } from 'graphql-request';
 import {
   KeyPair,
   OperationFields,
@@ -9,6 +7,7 @@ import {
   signAndEncodeEntry,
 } from 'p2panda-js';
 import { hideBin } from 'yargs/helpers';
+import { loadKeyPair, nextArgs, publish } from './common';
 
 // This fixes getting an ECONNREFUSED when making a request against localhost
 import { setDefaultResultOrder } from 'node:dns';
@@ -132,15 +131,15 @@ const SEKKI_FIELDS: Field[] = [
     type: 'str',
   },
   {
-    name: 'name_jp',
+    name: 'name_jp_kanji',
     type: 'str',
   },
   {
-    name: 'description_en',
+    name: 'name_jp_kana',
     type: 'str',
   },
   {
-    name: 'description_jp',
+    name: 'name_jp_romaji',
     type: 'str',
   },
   {
@@ -175,7 +174,15 @@ const KO_FIELDS: Field[] = [
     type: 'str',
   },
   {
-    name: 'name_jp',
+    name: 'name_jp_kanji',
+    type: 'str',
+  },
+  {
+    name: 'name_jp_kana',
+    type: 'str',
+  },
+  {
+    name: 'name_jp_romaji',
     type: 'str',
   },
   {
@@ -183,67 +190,24 @@ const KO_FIELDS: Field[] = [
     type: 'str',
   },
   {
-    name: 'description_jp',
+    name: 'description_jp_kanji',
+    type: 'str',
+  },
+  {
+    name: 'description_jp_kana',
+    type: 'str',
+  },
+  {
+    name: 'description_jp_romaji',
+    type: 'str',
+  },
+  {
+    name: 'image',
     type: 'str',
   },
 ];
 
 type PinnedRelationList = string[][];
-
-type NextArgs = {
-  logId: string;
-  seqNum: string;
-  backlink?: string;
-  skiplink?: string;
-};
-
-async function nextArgs(
-  client: GraphQLClient,
-  publicKey: string,
-  viewId?: string,
-): Promise<NextArgs> {
-  const query = gql`
-    query NextArgs($publicKey: String!, $viewId: String) {
-      nextArgs(publicKey: $publicKey, viewId: $viewId) {
-        logId
-        seqNum
-        backlink
-        skiplink
-      }
-    }
-  `;
-
-  const result = await client.request(query, {
-    publicKey,
-    viewId,
-  });
-
-  return result.nextArgs;
-}
-
-async function publish(
-  client: GraphQLClient,
-  entry: string,
-  operation: string,
-): Promise<NextArgs> {
-  const query = gql`
-    mutation Publish($entry: String!, $operation: String!) {
-      publish(entry: $entry, operation: $operation) {
-        logId
-        seqNum
-        backlink
-        skiplink
-      }
-    }
-  `;
-
-  const result = await client.request(query, {
-    entry,
-    operation,
-  });
-
-  return result.publish;
-}
 
 async function createFields(
   client: GraphQLClient,
@@ -336,7 +300,8 @@ async function createSekkiSchema(
   koSchemaId: string,
 ): Promise<string> {
   const name = 'seventy_two_seasons_sekki';
-  const description = 'One of the 24 major divisions in the ancient Japanese seasonal calendar';
+  const description =
+    'One of the 24 major divisions in the ancient Japanese seasonal calendar';
 
   const fields_parsed: Field[] = SEKKI_FIELDS.map((item) => {
     if (item.type == 'relation(ko)') {
@@ -354,23 +319,11 @@ async function createKoSchema(
   keyPair: KeyPair,
 ): Promise<string> {
   const name = 'seventy_two_seasons_ko';
-  const description = 'One of the 72 minor divisions in the ancient Japanese seasonal calendar';
+  const description =
+    'One of the 72 minor divisions in the ancient Japanese seasonal calendar';
 
   const fields = await createFields(client, keyPair, KO_FIELDS);
   return await createSchema(client, keyPair, name, description, fields);
-}
-
-function loadKeyPair(path: string) {
-  if (!path) {
-    return new KeyPair();
-  }
-
-  try {
-    const privateKey = fs.readFileSync(path, 'utf8').replace('\n', '');
-    return new KeyPair(privateKey);
-  } catch (error) {
-    throw new Error(`Could not load private key from ${path}`);
-  }
 }
 
 async function run(keyPair: KeyPair, endpoint: string) {

@@ -7,6 +7,7 @@
     "build": "webpack --mode production",
     "lint": "eslint --ext .ts --ext .tsx .",
     "schema": "ts-node --esm --transpileOnly ./register-schema.ts",
+    "year": "ts-node --esm --transpileOnly ./create-year.ts",
     "serve": "webpack serve --mode development",
     "start": "npm run serve",
     "typecheck": "tsc --noEmit"
