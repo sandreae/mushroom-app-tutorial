@@ -12,17 +12,7 @@ export const Navigation: React.FC = () => {
             }
             to="/"
           >
-            Feed
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              'navigation-link' + (isActive ? ' navigation-link-active' : '')
-            }
-            to="/mushrooms"
-          >
-            Mushrooms
+            Year
           </NavLink>
         </li>
       </ul>
