@@ -58,17 +58,15 @@ export type Meta = {
   documentId: string;
 };
 
-export type MushroomResponse = {
-  meta: Meta;
-  fields: Mushroom;
-};
-
-export type PictureResponse = {
+export type YearResponse = {
   meta: Meta;
   fields: {
-    blob: string;
-    lat: number;
-    lon: number;
-    mushrooms: MushroomResponse[];
+    year: number;
+    sekki: SekkiResponse[];
   };
+};
+
+export type SekkiResponse = {
+  meta: Meta;
+  fields: Sekki;
 };

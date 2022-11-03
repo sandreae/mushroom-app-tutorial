@@ -1,20 +1,8 @@
 import { GraphQLClient, gql, RequestDocument } from 'graphql-request';
-import {
-  KeyPair,
-  OperationFields,
-  encodeOperation,
-  signAndEncodeEntry,
-} from 'p2panda-js';
 
-import { ENDPOINT, MUSHROOM_SCHEMA_ID, FINDINGS_SCHEMA_ID } from './constants';
+import { ENDPOINT, YEAR_SCHEMA_ID, YEAR_ID } from './constants';
 
-import type {
-  Mushroom,
-  MushroomResponse,
-  NextArgs,
-  Picture,
-  PictureResponse,
-} from './types.d';
+import type { NextArgs, YearResponse } from './types.d';
 
 const client = new GraphQLClient(ENDPOINT);
 
@@ -74,118 +62,23 @@ export async function publish(
   return result.publish;
 }
 
-export async function getAllMushrooms(): Promise<MushroomResponse[]> {
+export async function getYear(): Promise<YearResponse> {
   const query = gql`{
-    mushrooms: all_${MUSHROOM_SCHEMA_ID} {
+    year: ${YEAR_SCHEMA_ID}(id: "${YEAR_ID}") {
       meta {
         documentId
         viewId
       }
       fields {
-        description
-        edible
-        latin
-        title
-      }
-    }
-  }`;
-
-  const result = await request(query);
-  return result.mushrooms;
-}
-
-export async function getMushroom(
-  documentId: string,
-): Promise<MushroomResponse> {
-  const query = gql`{
-    mushroom: ${MUSHROOM_SCHEMA_ID}(id: "${documentId}") {
-      meta {
-        documentId
-        viewId
-      }
-      fields {
-        description
-        edible
-        latin
-        title
-      }
-    }
-  }`;
-
-  const result = await request(query);
-  return result.mushroom;
-}
-
-export async function createMushroom(
-  keyPair: KeyPair,
-  values: Mushroom,
-): Promise<void> {
-  const args = await nextArgs(keyPair.publicKey());
-  const operation = encodeOperation({
-    schemaId: MUSHROOM_SCHEMA_ID,
-    fields: {
-      ...values,
-    },
-  });
-
-  const entry = signAndEncodeEntry(
-    {
-      ...args,
-      operation,
-    },
-    keyPair,
-  );
-
-  await publish(entry, operation);
-}
-
-export async function updateMushroom(
-  keyPair: KeyPair,
-  previous: string,
-  values: Mushroom,
-): Promise<void> {
-  const args = await nextArgs(keyPair.publicKey(), previous);
-  const operation = encodeOperation({
-    action: 'update',
-    schemaId: MUSHROOM_SCHEMA_ID,
-    previous,
-    fields: {
-      ...values,
-    },
-  });
-
-  const entry = signAndEncodeEntry(
-    {
-      ...args,
-      operation,
-    },
-    keyPair,
-  );
-
-  await publish(entry, operation);
-}
-
-export async function getAllPictures(): Promise<PictureResponse[]> {
-  const query = gql`{
-    pictures: all_${FINDINGS_SCHEMA_ID} {
-      meta {
-        documentId
-        viewId,
-      }
-      fields {
-        blob
-        lat
-        lon
-        mushrooms {
+        year
+        sekki {
           meta {
             documentId
             viewId
           }
           fields {
-            description
-            edible
-            latin
-            title
+            name_en
+            name_jp_kanji
           }
         }
       }
@@ -193,32 +86,5 @@ export async function getAllPictures(): Promise<PictureResponse[]> {
   }`;
 
   const result = await request(query);
-  return result.pictures;
-}
-
-export async function createPicture(keyPair: KeyPair, values: Picture) {
-  const args = await nextArgs(keyPair.publicKey());
-  const { blob, lat, lon, mushrooms } = values;
-
-  const fields = new OperationFields({
-    blob,
-    lat,
-    lon,
-  });
-  fields.insert('mushrooms', 'relation_list', mushrooms);
-
-  const operation = encodeOperation({
-    schemaId: FINDINGS_SCHEMA_ID,
-    fields,
-  });
-
-  const entry = signAndEncodeEntry(
-    {
-      ...args,
-      operation,
-    },
-    keyPair,
-  );
-
-  await publish(entry, operation);
+  return result.year;
 }
