@@ -267,9 +267,9 @@ const ALL_SEKKI: Sekki[] = [
     name_jp_kanji: '大寒',
     name_jp_kana: 'だいかん',
     name_jp_romaji: 'Daikan',
-    ko_01: { ...defaultKo, id: 71 },
-    ko_02: { ...defaultKo, id: 72 },
-    ko_03: { ...defaultKo, id: 73 },
+    ko_01: { ...defaultKo, id: 70 },
+    ko_02: { ...defaultKo, id: 71 },
+    ko_03: { ...defaultKo, id: 72 },
   },
 ];
 
