@@ -6,16 +6,19 @@ export type Year = {
   sekki: Sekki[];
 };
 
-export type Sekki = {
+export type SekkiFields = {
   id: number;
   name_en: string;
   name_jp_kanji: string;
   name_jp_kana: string;
   name_jp_romaji: string;
+};
+
+export type Sekki = SekkiFields & {
   ko_01: Ko;
   ko_02: Ko;
   ko_03: Ko;
-};
+}
 
 export type Ko = {
   id: number;
@@ -68,5 +71,14 @@ export type YearResponse = {
 
 export type SekkiResponse = {
   meta: Meta;
-  fields: Sekki;
+  fields: SekkiFields & {
+    ko_01: KoResponse;
+    ko_02: KoResponse;
+    ko_03: KoResponse;
+  };
+};
+
+export type KoResponse = {
+  meta: Meta;
+  fields: Ko;
 };

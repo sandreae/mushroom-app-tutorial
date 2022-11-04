@@ -1,8 +1,8 @@
 import { GraphQLClient, gql, RequestDocument } from 'graphql-request';
 
-import { ENDPOINT, YEAR_SCHEMA_ID, YEAR_ID } from './constants';
+import { ENDPOINT, YEAR_SCHEMA_ID, YEAR_ID, KO_SCHEMA_ID } from './constants';
 
-import type { NextArgs, YearResponse } from './types.d';
+import type { KoResponse, NextArgs, YearResponse } from './types.d';
 
 const client = new GraphQLClient(ENDPOINT);
 
@@ -18,6 +18,52 @@ async function request(query: RequestDocument, variables?: any) {
     );
   }
 }
+
+const meta_query_fields = `
+  meta {
+    documentId
+    viewId
+  }
+`;
+
+const ko_query_fields = `
+  fields {
+    id
+    from
+    to
+    name_en
+    name_jp_kanji
+    name_jp_kana
+    name_jp_romaji
+    description_en
+    description_jp_kanji
+    description_jp_kana
+    description_jp_romaji
+    image
+  }
+`;
+
+const sekki_query_fields = `
+  fields {
+    id
+    name_en
+    name_jp_kanji
+    name_jp_kana
+    name_jp_romaji
+    ko_01 {
+      ${meta_query_fields}
+      ${ko_query_fields}
+    }
+    ko_02 {
+      ${meta_query_fields}
+      ${ko_query_fields}
+    }
+    ko_03 {
+      ${meta_query_fields}
+      ${ko_query_fields}
+    }
+  }
+`;
 
 async function nextArgs(publicKey: string, viewId?: string): Promise<NextArgs> {
   const query = gql`
@@ -65,21 +111,12 @@ export async function publish(
 export async function getYear(): Promise<YearResponse> {
   const query = gql`{
     year: ${YEAR_SCHEMA_ID}(id: "${YEAR_ID}") {
-      meta {
-        documentId
-        viewId
-      }
+      ${meta_query_fields}
       fields {
         year
         sekki {
-          meta {
-            documentId
-            viewId
-          }
-          fields {
-            name_en
-            name_jp_kanji
-          }
+          ${meta_query_fields}
+          ${sekki_query_fields}
         }
       }
     }
@@ -87,4 +124,16 @@ export async function getYear(): Promise<YearResponse> {
 
   const result = await request(query);
   return result.year;
+}
+
+export async function getKo(documentId: string): Promise<KoResponse> {
+  const query = gql`{
+    ko: ${KO_SCHEMA_ID}(id: "${documentId}") {
+      ${meta_query_fields}
+      ${ko_query_fields}
+    }
+  }`;
+
+  const result = await request(query);
+  return result.ko;
 }
