@@ -33,28 +33,26 @@ export const ShowYear = () => {
           <h2>{result.fields.year}</h2>
           <ul className="feed">
             {result.fields.sekki.map(({ fields, meta }) => {
+              const ko = [fields.ko_01, fields.ko_02, fields.ko_03];
+
               return (
-                <ul key={meta.documentId}>
-                  <li>
-                    <Link to={`/sekki/${meta.documentId}`}>
-                      {fields.name_jp_kanji} <em>{fields.name_en}</em>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={`/ko/${fields.ko_01.meta.documentId}/edit`}>
-                      {fields.ko_01.fields.name_jp_kanji}{' '}
-                      <em>{fields.ko_01.fields.name_en}</em>
-                    </Link>
-                    <Link to={`/ko/${fields.ko_02.meta.documentId}/edit`}>
-                      {fields.ko_02.fields.name_jp_kanji}{' '}
-                      <em>{fields.ko_02.fields.name_en}</em>
-                    </Link>
-                    <Link to={`/ko/${fields.ko_02.meta.documentId}/edit`}>
-                      {fields.ko_03.fields.name_jp_kanji}{' '}
-                      <em>{fields.ko_03.fields.name_en}</em>
-                    </Link>
-                  </li>
-                </ul>
+                <>
+                  <h2>
+                    {fields.name_jp_kanji} {fields.name_en}
+                  </h2>
+                  <ul key={meta.documentId}>
+                    {ko.map((ko) => {
+                      return (
+                        <li key={ko.fields.id}>
+                          <Link to={`/ko/${ko.meta.documentId}`}>
+                            {ko.fields.name_jp_kanji}{' '}
+                            <em>{ko.fields.name_en}</em>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
               );
             })}
           </ul>
