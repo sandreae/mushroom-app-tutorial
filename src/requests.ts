@@ -1,8 +1,9 @@
 import { GraphQLClient, gql, RequestDocument } from 'graphql-request';
+import { encodeOperation, KeyPair, signAndEncodeEntry } from 'p2panda-js';
 
 import { ENDPOINT, YEAR_SCHEMA_ID, YEAR_ID, KO_SCHEMA_ID } from './constants';
 
-import type { KoResponse, NextArgs, YearResponse } from './types.d';
+import type { Ko, KoResponse, NextArgs, YearResponse } from './types.d';
 
 const client = new GraphQLClient(ENDPOINT);
 
@@ -137,3 +138,30 @@ export async function getKo(documentId: string): Promise<KoResponse> {
   const result = await request(query);
   return result.ko;
 }
+
+export async function updateKo(
+  keyPair: KeyPair,
+  previous: string,
+  values: Ko,
+): Promise<void> {
+  const args = await nextArgs(keyPair.publicKey(), previous);
+  const operation = encodeOperation({
+    action: 'update',
+    schemaId: KO_SCHEMA_ID,
+    previous,
+    fields: {
+      ...values,
+    },
+  });
+
+  const entry = signAndEncodeEntry(
+    {
+      ...args,
+      operation,
+    },
+    keyPair,
+  );
+
+  await publish(entry, operation);
+}
+

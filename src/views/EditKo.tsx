@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { KeyPairContext } from '../KeyPairContext';
-import { getKo } from '../requests';
+import { getKo, updateKo } from '../requests';
 import { Ko, KoResponse } from '../types';
 
 export const EditKo = () => {
@@ -54,8 +54,8 @@ export const EditKo = () => {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // await updateKo(keyPair, viewId, values);
-    // window.alert('Updated ko!');
+    await updateKo(keyPair, viewId, values);
+    window.alert('Updated ko!');
     navigate('/');
   };
 
