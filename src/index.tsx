@@ -6,6 +6,7 @@ import './styles.css';
 
 import { App, InitWasm } from './components';
 import { KeyPairProvider } from './KeyPairContext';
+import { DocumentStoreProvider } from './DocumentIdContext';
 import { Router } from './Router';
 
 const Root: React.FC = () => {
@@ -13,9 +14,11 @@ const Root: React.FC = () => {
     <InitWasm>
       <BrowserRouter>
         <KeyPairProvider>
-          <App>
-            <Router />
-          </App>
+          <DocumentStoreProvider>
+            <App>
+              <Router />
+            </App>
+          </DocumentStoreProvider>
         </KeyPairProvider>
       </BrowserRouter>
     </InitWasm>
