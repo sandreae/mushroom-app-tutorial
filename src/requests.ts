@@ -1,9 +1,9 @@
 import { GraphQLClient, gql, RequestDocument } from 'graphql-request';
 import { encodeOperation, KeyPair, signAndEncodeEntry } from 'p2panda-js';
 
-import { ENDPOINT, YEAR_SCHEMA_ID, YEAR_ID, KO_SCHEMA_ID } from './constants';
+import { ENDPOINT, YEAR_SCHEMA_ID, YEAR_ID, KO_SCHEMA_ID, SEKKI_SCHEMA_ID } from './constants';
 
-import type { Ko, KoResponse, NextArgs, YearResponse } from './types.d';
+import type { Ko, KoResponse, NextArgs, SekkiResponse, YearResponse } from './types.d';
 
 const client = new GraphQLClient(ENDPOINT);
 
@@ -137,6 +137,18 @@ export async function getKo(documentId: string): Promise<KoResponse> {
 
   const result = await request(query);
   return result.ko;
+}
+
+export async function getSekki(documentId: string): Promise<SekkiResponse> {
+  const query = gql`{
+    sekki: ${SEKKI_SCHEMA_ID}(id: "${documentId}") {
+      ${meta_query_fields}
+      ${sekki_query_fields}
+    }
+  }`;
+
+  const result = await request(query);
+  return result.sekki;
 }
 
 export async function updateKo(

@@ -53,7 +53,9 @@ export const ShowYear = () => {
               return (
                 <div key={fields.id}>
                   <h2>
-                    {fields.name_jp_kanji} {fields.name_en}
+                    <Link to={`/sekki/${fields.id}`}>
+                      {fields.name_jp_kanji} {fields.name_en}
+                    </Link>
                   </h2>
                   <ul key={meta.documentId}>
                     {ko.map((ko) => {
