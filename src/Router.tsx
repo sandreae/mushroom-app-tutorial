@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { ShowYear, EditKo, ViewKo, ViewSekki } from './views';
+import { ViewYear, EditKo, ViewKo, ViewSekki } from './views';
 
 export const Router: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ export const Router: React.FC = () => {
       <Route path="ko/:id/edit" element={<EditKo />} />
       <Route path="ko/:id" element={<ViewKo />} />
       <Route path="sekki/:id" element={<ViewSekki />} />
-      <Route path="/" element={<ShowYear />} />
+      <Route path="/" element={<ViewYear />} />
     </Routes>
   );
 };

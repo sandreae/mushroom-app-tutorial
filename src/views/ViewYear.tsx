@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { getYear } from '../requests';
 import { Ko, YearResponse } from '../types';
 
-export const ShowYear = () => {
+export const ViewYear = () => {
   const { documentId } = useParams();
 
   const [loading, setLoading] = useState(true);
