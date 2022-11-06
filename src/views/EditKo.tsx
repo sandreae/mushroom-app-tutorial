@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { DocumentIdContext } from '../DocumentIdContext';
 
 import { KeyPairContext } from '../KeyPairContext';
 import { getKo, updateKo } from '../requests';
-import { Ko, KoResponse } from '../types';
+import { Ko } from '../types';
 
 export const EditKo = () => {
   const navigate = useNavigate();
-  const { documentId } = useParams();
+  const { id } = useParams();
   const { keyPair } = useContext(KeyPairContext);
+  const { koDocumentIds } = useContext(DocumentIdContext);
 
   const [loading, setLoading] = useState(true);
   const [viewId, setViewId] = useState<string>();
@@ -30,14 +32,14 @@ export const EditKo = () => {
   useEffect(() => {
     const request = async () => {
       setLoading(true);
-      const result = await getKo(documentId);
+      const result = await getKo(koDocumentIds[(id as unknown as number) - 1]);
       setValues(result.fields);
       setViewId(result.meta.viewId);
       setLoading(false);
     };
 
     request();
-  }, [documentId]);
+  }, [id, koDocumentIds]);
 
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

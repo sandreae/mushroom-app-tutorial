@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { getYear } from '../requests';
-import { YearResponse } from '../types';
+import { Ko, YearResponse } from '../types';
 
 export const ShowYear = () => {
   const { documentId } = useParams();
@@ -24,6 +24,21 @@ export const ShowYear = () => {
     request();
   }, [documentId]);
 
+  const koLink = (ko: Ko) => {
+    return ko.image == '' ? (
+      <li key={ko.id}>
+        {ko.name_jp_kanji} {ko.name_en}
+        <Link to={`/ko/${ko.id}/edit`}>➕</Link>
+      </li>
+    ) : (
+      <li key={ko.id}>
+        <Link to={`/ko/${ko.id}`}>
+          {ko.name_jp_kanji} {ko.name_en}
+        </Link>
+      </li>
+    );
+  };
+
   return (
     <>
       {loading ? (
@@ -36,23 +51,16 @@ export const ShowYear = () => {
               const ko = [fields.ko_01, fields.ko_02, fields.ko_03];
 
               return (
-                <>
+                <div key={fields.id}>
                   <h2>
                     {fields.name_jp_kanji} {fields.name_en}
                   </h2>
                   <ul key={meta.documentId}>
                     {ko.map((ko) => {
-                      return (
-                        <li key={ko.fields.id}>
-                          <Link to={`/ko/${ko.meta.documentId}`}>
-                            {ko.fields.name_jp_kanji}{' '}
-                            <em>{ko.fields.name_en}</em>
-                          </Link>
-                        </li>
-                      );
+                      return koLink(ko.fields);
                     })}
                   </ul>
-                </>
+                </div>
               );
             })}
           </ul>

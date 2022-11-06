@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { getKo } from '../requests';
+import { ShowKo } from '../components/ShowKo';
 import { Ko } from '../types';
+import { DocumentIdContext } from '../DocumentIdContext';
 
 export const ViewKo = () => {
-  const { documentId } = useParams();
+  const { id } = useParams();
+
+  const { koDocumentIds } = useContext(DocumentIdContext);
 
   const [loading, setLoading] = useState(true);
-  const [values, setValues] = useState<Ko>({
+  const [hasNext, setHasNext] = useState(false);
+  const [hasPrevious, setHasPrevious] = useState(false);
+  const [ko, setKo] = useState<Ko>({
     id: 1,
     from: '',
     to: '',
@@ -25,31 +31,32 @@ export const ViewKo = () => {
 
   useEffect(() => {
     const request = async () => {
+      const numId = parseInt(id);
+
       setLoading(true);
-      const result = await getKo(documentId);
-      setValues(result.fields);
+      const result = await getKo(koDocumentIds[numId - 1]);
+      setKo(result.fields);
+      setHasNext(numId < 72);
+      setHasPrevious(numId > 1);
       setLoading(false);
     };
 
     request();
-  }, [documentId]);
-
-  const listItems = (values: Ko) => {
-    return Object.entries(values).map(([key, value]) => {
-      return key == 'name_jp_kanji' ? null : (
-        <li key={key}>
-          <em>{key}: </em> {value}
-        </li>
-      );
-    });
-  };
+  }, [id, koDocumentIds]);
 
   return (
     <>
-      <h2>{values.name_jp_kanji}</h2>
-      {loading ? 'Loading ...' : <ul>{listItems(values)}</ul>}
+      {loading ? 'Loading ...' : <ShowKo {...ko} />}
       <p>
-        <Link to={`/ko/${documentId}/edit`}>edit</Link> this Ko
+        <Link to={`/ko/${id}/edit`}>edit</Link> this Ko
+      </p>
+      <p>
+        {hasPrevious ? (
+          <Link to={`/ko/${parseInt(id) - 1}`}>previous</Link>
+        ) : (
+          ''
+        )}
+        {hasNext ? <Link to={`/ko/${parseInt(id) + 1}`}>next</Link> : ''}
       </p>
     </>
   );
