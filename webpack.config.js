@@ -12,7 +12,8 @@ module.exports = () => {
   return {
     entry: './src/index.tsx',
     output: {
-      filename: './dist/index.js',
+      filename: 'dist/index.js',
+      publicPath: '/',
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.css'],
@@ -32,7 +33,7 @@ module.exports = () => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'Mushrooms!',
+        title: '72 Seasons',
       }),
     ],
   };
