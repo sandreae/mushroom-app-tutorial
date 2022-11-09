@@ -14,20 +14,7 @@ export const ViewKo = () => {
   const [loading, setLoading] = useState(true);
   const [hasNext, setHasNext] = useState(false);
   const [hasPrevious, setHasPrevious] = useState(false);
-  const [ko, setKo] = useState<Ko>({
-    id: 1,
-    from: '',
-    to: '',
-    name_en: '',
-    name_jp_kanji: '',
-    name_jp_kana: '',
-    name_jp_romaji: '',
-    description_en: '',
-    description_jp_kanji: '',
-    description_jp_kana: '',
-    description_jp_romaji: '',
-    image: '',
-  });
+  const [ko, setKo] = useState<Ko>(null);
 
   useEffect(() => {
     const request = async () => {
@@ -45,19 +32,11 @@ export const ViewKo = () => {
   }, [id, koDocumentIds]);
 
   return (
-    <>
+    <div className="narrow-page">
       {loading ? 'Loading ...' : <ShowKo {...ko} />}
-      <p>
-        <Link to={`/ko/${id}/edit`}>edit</Link> this Ko
-      </p>
-      <p>
-        {hasPrevious ? (
-          <Link to={`/ko/${parseInt(id) - 1}`}>previous</Link>
-        ) : (
-          ''
-        )}
-        {hasNext ? <Link to={`/ko/${parseInt(id) + 1}`}>next</Link> : ''}
-      </p>
-    </>
+      {hasPrevious ? <Link to={`/ko/${parseInt(id) - 1}`}>previous</Link> : ''}
+      {hasNext ? <Link to={`/ko/${parseInt(id) + 1}`}>next</Link> : ''}
+      <Link to={`/ko/${id}/edit`}>edit</Link>
+    </div>
   );
 };

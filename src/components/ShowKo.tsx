@@ -9,15 +9,19 @@ export const ShowKo: React.FC<Ko> = ({
   description_jp_kanji,
 }) => {
   return (
-    <ul>
-      <li>
+    <div className="ko">
+      <div>
         <h2>
           {name_jp_kanji} {name_en}
         </h2>
         <img src={image} alt="" style={{ width: '100%' }} />
-        <p>{description_jp_kanji}</p>
-        <p>{description_en}</p>
-      </li>
-    </ul>
+      </div>
+      <div>
+        <ul>
+          <li>{description_en}</li>
+          <li>{description_jp_kanji}</li>
+        </ul>
+      </div>
+    </div>
   );
 };

@@ -86,11 +86,7 @@ label span {
 .app {
   width: 100%;
   margin: 40px auto;
-  max-width: 600px;
-  border-radius: 20px;
-  border: #60B9CD 10px solid;
-  background-color: #effaf3;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  max-width: 90vw;
   padding: 20px;
 }
 
@@ -127,4 +123,28 @@ label span {
 input.gps {
   width: 100px;
   background-color: #fff;
+}
+
+.sekki {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.ko {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.narrow-page {
+  width: 100%;
+  margin: 40px auto;
+  max-width: 600px;
+  border-radius: 20px;
+  border: #60B9CD 10px solid;
+  background-color: #effaf3;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }

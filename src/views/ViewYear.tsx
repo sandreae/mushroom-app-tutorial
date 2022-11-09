@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { getYear } from '../requests';
-import { Ko, YearResponse } from '../types';
+import { Ko, KoResponse, SekkiFields, YearResponse } from '../types';
 
 export const ViewYear = () => {
   const { documentId } = useParams();
@@ -24,6 +24,21 @@ export const ViewYear = () => {
     request();
   }, [documentId]);
 
+  const sekkiLink = (sekki: SekkiFields, allKo: KoResponse[]) => {
+    const isComplete =
+      allKo.filter((ko) => {
+        return ko.fields.image == '';
+      }).length == 0;
+    return isComplete ? (
+      <Link to={`/sekki/${sekki.id}`}>
+        {sekki.name_jp_kanji} {sekki.name_en}
+      </Link>
+    ) : (
+      <>
+        {sekki.name_jp_kanji} {sekki.name_en}
+      </>
+    );
+  };
   const koLink = (ko: Ko) => {
     return ko.image == '' ? (
       <li key={ko.id}>
@@ -44,7 +59,7 @@ export const ViewYear = () => {
       {loading ? (
         'Loading ...'
       ) : (
-        <>
+        <div className="narrow-page">
           <h2>{result.fields.year}</h2>
           <ul className="feed">
             {result.fields.sekki.map(({ fields, meta }) => {
@@ -52,11 +67,7 @@ export const ViewYear = () => {
 
               return (
                 <div key={fields.id}>
-                  <h2>
-                    <Link to={`/sekki/${fields.id}`}>
-                      {fields.name_jp_kanji} {fields.name_en}
-                    </Link>
-                  </h2>
+                  <h2>{sekkiLink(fields, ko)}</h2>
                   <ul key={meta.documentId}>
                     {ko.map((ko) => {
                       return koLink(ko.fields);
@@ -66,7 +77,7 @@ export const ViewYear = () => {
               );
             })}
           </ul>
-        </>
+        </div>
       )}
     </>
   );

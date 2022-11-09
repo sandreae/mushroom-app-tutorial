@@ -79,7 +79,7 @@ export const EditKo = () => {
   };
 
   return (
-    <>
+    <div className="narrow-page">
       <h2>Edit Ko</h2>
       {loading ? (
         'Loading ...'
@@ -89,6 +89,6 @@ export const EditKo = () => {
           <input type="submit" value="Update" />
         </form>
       )}
-    </>
+    </div>
   );
 };
