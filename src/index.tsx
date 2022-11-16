@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 
 import './styles.css';
@@ -12,7 +12,7 @@ import { Router } from './Router';
 const Root: React.FC = () => {
   return (
     <InitWasm>
-      <BrowserRouter>
+      <HashRouter>
         <KeyPairProvider>
           <DocumentStoreProvider>
             <App>
@@ -20,7 +20,7 @@ const Root: React.FC = () => {
             </App>
           </DocumentStoreProvider>
         </KeyPairProvider>
-      </BrowserRouter>
+      </HashRouter>
     </InitWasm>
   );
 };
