@@ -32,7 +32,7 @@ export type Ko = {
   description_jp_kanji: string;
   description_jp_kana: string;
   description_jp_romaji: string;
-  image: string;
+  img_url: string;
 };
 
 export type Mushroom = {

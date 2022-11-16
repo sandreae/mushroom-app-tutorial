@@ -110,7 +110,7 @@ const KO_FIELDS: Field[] = [
     type: 'str',
   },
   {
-    name: 'image',
+    name: 'img_url',
     type: 'str',
   },
 ];

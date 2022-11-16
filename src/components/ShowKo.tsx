@@ -2,7 +2,7 @@ import React from 'react';
 import { Ko } from '../types';
 
 export const ShowKo: React.FC<Ko> = ({
-  image,
+  img_url,
   name_en,
   name_jp_kanji,
   description_en,
@@ -14,7 +14,7 @@ export const ShowKo: React.FC<Ko> = ({
         <h2>
           {name_jp_kanji} {name_en}
         </h2>
-        <img src={image} alt="" style={{ width: '100%' }} />
+        <img src={img_url} alt="" style={{ width: '100%' }} />
       </div>
       <div>
         <ul>

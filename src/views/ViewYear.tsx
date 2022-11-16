@@ -27,7 +27,7 @@ export const ViewYear = () => {
   const sekkiLink = (sekki: SekkiFields, allKo: KoResponse[]) => {
     const isComplete =
       allKo.filter((ko) => {
-        return ko.fields.image == '';
+        return ko.fields.img_url == '';
       }).length == 0;
     return isComplete ? (
       <Link to={`/sekki/${sekki.id}`}>
@@ -40,7 +40,7 @@ export const ViewYear = () => {
     );
   };
   const koLink = (ko: Ko) => {
-    return ko.image == '' ? (
+    return ko.img_url == '' ? (
       <li key={ko.id}>
         {ko.name_jp_kanji} {ko.name_en}
         <Link to={`/ko/${ko.id}/edit`}>➕</Link>

@@ -27,7 +27,7 @@ const defaultKo: Ko = {
   description_jp_kanji: '',
   description_jp_kana: '',
   description_jp_romaji: '',
-  image: '',
+  img_url: '',
 };
 
 const getAllSekki = (year: number) => {
