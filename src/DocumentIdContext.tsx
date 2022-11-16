@@ -13,13 +13,14 @@ const load = async (): Promise<void> => {
   // If it isn't set, or is not what we expect then we reset the whole cache
   // with a fresh call to the node. The cache stores documentIds for Sekki
   // and Ko documents.
-  const year = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY_YEAR));
-  if (year.meta.documentId == YEAR_ID) {
+  const year = window.localStorage.getItem(LOCAL_STORAGE_KEY_YEAR);
+
+  if (year == YEAR_ID) {
     return;
   }
 
   const result = await getYear();
-  window.localStorage.setItem(LOCAL_STORAGE_KEY_YEAR, result.meta.documentId);
+  window.localStorage.setItem(LOCAL_STORAGE_KEY_YEAR, YEAR_ID);
 
   const sekkiDocumentIds: string[] = [];
   const koDocumentIds: string[] = [];
