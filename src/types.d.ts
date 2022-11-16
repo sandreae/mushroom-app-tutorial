@@ -18,7 +18,7 @@ export type Sekki = SekkiFields & {
   ko_01: Ko;
   ko_02: Ko;
   ko_03: Ko;
-}
+};
 
 export type Ko = {
   id: number;
@@ -28,10 +28,10 @@ export type Ko = {
   name_jp_kanji: string;
   name_jp_kana: string;
   name_jp_romaji: string;
-  description_en: string;
-  description_jp_kanji: string;
-  description_jp_kana: string;
-  description_jp_romaji: string;
+  img_description_en: string;
+  img_description_jp_kanji: string;
+  img_description_jp_kana: string;
+  img_description_jp_romaji: string;
   img_url: string;
 };
 

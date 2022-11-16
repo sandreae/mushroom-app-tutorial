@@ -48,10 +48,10 @@ const ko_query_fields = `
     name_jp_kanji
     name_jp_kana
     name_jp_romaji
-    description_en
-    description_jp_kanji
-    description_jp_kana
-    description_jp_romaji
+    img_description_en
+    img_description_jp_kanji
+    img_description_jp_kana
+    img_description_jp_romaji
     img_url
   }
 `;

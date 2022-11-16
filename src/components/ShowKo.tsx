@@ -5,8 +5,8 @@ export const ShowKo: React.FC<Ko> = ({
   img_url,
   name_en,
   name_jp_kanji,
-  description_en,
-  description_jp_kanji,
+  img_description_en,
+  img_description_jp_kanji,
 }) => {
   return (
     <div className="ko">
@@ -18,8 +18,8 @@ export const ShowKo: React.FC<Ko> = ({
       </div>
       <div>
         <ul>
-          <li>{description_en}</li>
-          <li>{description_jp_kanji}</li>
+          <li>{img_description_en}</li>
+          <li>{img_description_jp_kanji}</li>
         </ul>
       </div>
     </div>

@@ -94,19 +94,19 @@ const KO_FIELDS: Field[] = [
     type: 'str',
   },
   {
-    name: 'description_en',
+    name: 'img_description_en',
     type: 'str',
   },
   {
-    name: 'description_jp_kanji',
+    name: 'img_description_jp_kanji',
     type: 'str',
   },
   {
-    name: 'description_jp_kana',
+    name: 'img_description_jp_kana',
     type: 'str',
   },
   {
-    name: 'description_jp_romaji',
+    name: 'img_description_jp_romaji',
     type: 'str',
   },
   {
