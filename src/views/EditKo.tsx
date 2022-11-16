@@ -22,10 +22,10 @@ export const EditKo = () => {
     name_jp_kanji: '',
     name_jp_kana: '',
     name_jp_romaji: '',
-    description_en: '',
-    description_jp_kanji: '',
-    description_jp_kana: '',
-    description_jp_romaji: '',
+    img_description_en: '',
+    img_description_jp_kanji: '',
+    img_description_jp_kana: '',
+    img_description_jp_romaji: '',
     img_url: '',
   });
 
@@ -61,23 +61,6 @@ export const EditKo = () => {
     navigate('/');
   };
 
-  const formFields = (values: Ko) => {
-    return Object.entries(values).map(([key, value]) => {
-      return (
-        <fieldset key={key}>
-          <label htmlFor={key}>{key}</label>
-          <input
-            type="text"
-            id={key}
-            name={key}
-            value={value}
-            onChange={onChange}
-          />
-        </fieldset>
-      );
-    });
-  };
-
   return (
     <div className="narrow-page">
       <h2>Edit Ko</h2>
@@ -85,7 +68,96 @@ export const EditKo = () => {
         'Loading ...'
       ) : (
         <form onSubmit={onSubmit}>
-          {formFields(values)}
+          <fieldset>
+            <label>Ko name EN</label>
+            <input
+              type="text"
+              id="name_en"
+              name="name_en"
+              value={values['name_en']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Ko name JP kanji</label>
+            <input
+              type="text"
+              id="name_jp_kanji"
+              name="name_jp_kanji"
+              value={values['name_jp_kanji']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Ko name JP romaji</label>
+            <input
+              type="text"
+              id="name_jp_romaji"
+              name="name_jp_romaji"
+              value={values['name_jp_romaji']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Ko name JP kana</label>
+            <input
+              type="text"
+              id="name_jp_kana"
+              name="name_jp_kana"
+              value={values['name_jp_kana']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Image URL</label>
+            <input
+              type="text"
+              id="img_url"
+              name="img_url"
+              value={values['img_url']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Image description EN</label>
+            <input
+              type="text"
+              id="img_description_en"
+              name="img_description_en"
+              value={values['img_description_en']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Image description JP kanji</label>
+            <input
+              type="text"
+              id="img_description_jp_kanji"
+              name="img_description_jp_kanji"
+              value={values['img_description_jp_kanji']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Image description JP romaji</label>
+            <input
+              type="text"
+              id="img_description_jp_romaji"
+              name="img_description_jp_romaji"
+              value={values['img_description_jp_romaji']}
+              onChange={onChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>Image description JP kana</label>
+            <input
+              type="text"
+              id="img_description_jp_kana"
+              name="img_description_jp_kana"
+              value={values['img_description_jp_kana']}
+              onChange={onChange}
+            />
+          </fieldset>
           <input type="submit" value="Update" />
         </form>
       )}
