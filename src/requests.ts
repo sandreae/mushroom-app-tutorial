@@ -1,9 +1,21 @@
 import { GraphQLClient, gql, RequestDocument } from 'graphql-request';
 import { encodeOperation, KeyPair, signAndEncodeEntry } from 'p2panda-js';
 
-import { ENDPOINT, YEAR_SCHEMA_ID, YEAR_ID, KO_SCHEMA_ID, SEKKI_SCHEMA_ID } from './constants';
+import {
+  ENDPOINT,
+  YEAR_SCHEMA_ID,
+  YEAR_ID,
+  KO_SCHEMA_ID,
+  SEKKI_SCHEMA_ID,
+} from './constants';
 
-import type { Ko, KoResponse, NextArgs, SekkiResponse, YearResponse } from './types.d';
+import type {
+  Ko,
+  KoResponse,
+  NextArgs,
+  SekkiResponse,
+  YearResponse,
+} from './types.d';
 
 const client = new GraphQLClient(ENDPOINT);
 
@@ -176,4 +188,3 @@ export async function updateKo(
 
   await publish(entry, operation);
 }
-
