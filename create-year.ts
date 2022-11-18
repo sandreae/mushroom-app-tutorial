@@ -867,6 +867,8 @@ async function createYear(
 
   const operationFields = new OperationFields({
     year,
+    author: '',
+    description: '',
   });
   operationFields.insert('sekki', 'relation_list', all_sekki);
 

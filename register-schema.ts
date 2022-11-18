@@ -24,6 +24,14 @@ const YEAR_FIELDS: Field[] = [
     type: 'int',
   },
   {
+    name: 'author',
+    type: 'str',
+  },
+  {
+    name: 'description',
+    type: 'str',
+  },
+  {
     name: 'sekki',
     type: 'relation_list(sekki)',
   },
