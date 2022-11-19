@@ -1,5 +1,5 @@
 dist
-config
+config.json
 node_modules
 schemas.json
 year.json
