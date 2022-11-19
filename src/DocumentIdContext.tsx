@@ -22,10 +22,10 @@ type Props = {
 
 export const DocumentStoreProvider: React.FC<Props> = ({ children }) => {
   const [sekkiDocumentIds, setSekkiDocumentIds] = useState(
-    JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY_KO)),
+    JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY_SEKKI)),
   );
   const [koDocumentIds, setKoDocumentIds] = useState(
-    JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY_SEKKI)),
+    JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY_KO)),
   );
 
   useEffect(() => {
