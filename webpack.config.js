@@ -12,7 +12,7 @@ module.exports = () => {
   return {
     entry: './src/index.tsx',
     output: {
-      filename: 'dist/index.js',
+      filename: 'index.js',
       publicPath: '/',
     },
     resolve: {
