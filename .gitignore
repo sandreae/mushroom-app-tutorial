@@ -4,3 +4,4 @@ node_modules
 schemas.json
 year.json
 public
+.private_key
