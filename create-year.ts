@@ -957,10 +957,8 @@ async function run(keyPair: KeyPair, endpoint: string) {
   const yearId = await createYear(client, keyPair, this_year);
 
   console.log();
-  console.log('Next step: Create a file `./year.json` and paste this into it:');
-  console.log('{');
-  console.log(`  "YEAR_ID": "${yearId}"`);
-  console.log('}');
+  console.log('Next step: Add this line to your `./config.json` file:');
+  console.log(`"YEAR_ID": "${yearId}"`);
 }
 
 const { argv } = yargs(hideBin(process.argv))

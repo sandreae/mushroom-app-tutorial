@@ -250,14 +250,12 @@ async function run(keyPair: KeyPair, endpoint: string) {
   const yearSchemaId = await createYearSchema(client, keyPair, sekkiSchemaId);
 
   console.log();
-  console.log(
-    'Next step: Create a file `./schemas.json` and paste this into it:',
-  );
-  console.log('{');
-  console.log(`  "KO_SCHEMA_ID": "${koSchemaId}",`);
-  console.log(`  "SEKKI_SCHEMA_ID": "${sekkiSchemaId}",`);
-  console.log(`  "YEAR_SCHEMA_ID": "${yearSchemaId}"`);
-  console.log('}');
+
+  console.log('Next step: Add these lines to your `./config.json` file:');
+
+  console.log(`"KO_SCHEMA_ID": "${koSchemaId}",`);
+  console.log(`"SEKKI_SCHEMA_ID": "${sekkiSchemaId}",`);
+  console.log(`"YEAR_SCHEMA_ID": "${yearSchemaId}"`);
 }
 
 const { argv } = yargs(hideBin(process.argv))
