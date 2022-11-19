@@ -7,7 +7,7 @@ import {
 } from 'p2panda-js';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { KO_SCHEMA_ID, SEKKI_SCHEMA_ID, YEAR_SCHEMA_ID } from './schemas.json';
+import { KO_SCHEMA_ID, SEKKI_SCHEMA_ID, YEAR_SCHEMA_ID } from './config.json';
 import { loadKeyPair, nextArgs, RelationList, publish } from './common';
 import type { Sekki, Ko } from './src/types.d';
 
