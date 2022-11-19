@@ -3,9 +3,9 @@ const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => {
-  if (!fs.existsSync('./schemas.json')) {
+  if (!fs.existsSync('./config.json')) {
     throw new Error(
-      'You have to create a `schemas.json` file first! Please start your p2panda node and run `npm run schema`.',
+      'You have to create a `config.json` file first! See README for instructions',
     );
   }
 
