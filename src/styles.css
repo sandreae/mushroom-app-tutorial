@@ -71,7 +71,7 @@ label {
 
 textarea,
 input[type="text"] {
-  width: 80%;
+  width: 95%;
   padding: 10px;
   border-radius: 5px;
   font-family: monospace;
@@ -142,9 +142,10 @@ input.gps {
 .narrow-page {
   width: 100%;
   margin: 40px auto;
+  padding: 20px;
   max-width: 600px;
   border-radius: 20px;
-  border: #60B9CD 10px solid;
+  border: gray 10px solid;
   background-color: #effaf3;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
