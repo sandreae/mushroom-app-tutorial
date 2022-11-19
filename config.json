@@ -1,7 +1,0 @@
-{
-  "ENDPOINT": "http://localhost:2020/graphql",
-  "KO_SCHEMA_ID": "seventy_two_seasons_ko_0020c76caf2170c6b7a006c0186addf1e7b23637324beb4fde75c7c41d7b42726173",
-  "SEKKI_SCHEMA_ID": "seventy_two_seasons_sekki_00202076ed60bafd9c025a6cb39a37d674b0c22ed764a5a6395d4b06bc5c9bdad19f",
-  "YEAR_SCHEMA_ID": "seventy_two_seasons_year_0020b8cb3cdeb96a923ee5c86f667b62763f714a4c0d2b42dea9e68ab317ab7bdddc",
-  "YEAR_ID": "002099156b74993ce962c797a3d9544ee7b6b5c9100d5acac391744de9433f760548"
-}
