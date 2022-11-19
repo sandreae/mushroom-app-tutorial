@@ -139,6 +139,23 @@ input.gps {
   padding: 10px;
 }
 
+.ko-text {
+  color: gray;
+  font-weight: 400;
+}
+
+.ko-text li:nth-of-type(1) {
+  color: black;
+  font-weight: 800;
+}
+
+.ko-text li:nth-of-type(4) {
+  font-style: italic;
+  font-weight: 600;
+  color: black;
+}
+
+
 .narrow-page {
   width: 100%;
   margin: 40px auto;

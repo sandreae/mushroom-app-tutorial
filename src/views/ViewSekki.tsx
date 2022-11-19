@@ -32,11 +32,16 @@ export const ViewSekki = () => {
       {loading ? (
         'Loading ...'
       ) : (
-        <div className="sekki">
-          <ShowKo {...sekki.fields.ko_01.fields} />
-          <ShowKo {...sekki.fields.ko_02.fields} />
-          <ShowKo {...sekki.fields.ko_03.fields} />
-        </div>
+        <>
+          <h1>
+            {sekki.fields.name_jp_kanji} {sekki.fields.name_en}
+          </h1>
+          <div className="sekki">
+            <ShowKo {...sekki.fields.ko_01.fields} />
+            <ShowKo {...sekki.fields.ko_02.fields} />
+            <ShowKo {...sekki.fields.ko_03.fields} />
+          </div>
+        </>
       )}
     </>
   );

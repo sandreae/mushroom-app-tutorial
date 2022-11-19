@@ -40,13 +40,18 @@ export const ViewYear = () => {
     );
   };
   const koLink = (ko: Ko) => {
+    const date = new Date(ko.from).toLocaleDateString('en-gb', {
+      day: 'numeric',
+      month: 'short',
+    });
     return ko.img_url == '' ? (
       <li key={ko.id}>
-        {ko.name_jp_kanji} {ko.name_en}
+        {date} {ko.name_jp_kanji} {ko.name_en}{' '}
         <Link to={`/ko/${ko.id}/edit`}>➕</Link>
       </li>
     ) : (
       <li key={ko.id}>
+        {`${date} `}
         <Link to={`/ko/${ko.id}`}>
           {ko.name_jp_kanji} {ko.name_en}
         </Link>
