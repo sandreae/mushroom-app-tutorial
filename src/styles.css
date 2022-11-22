@@ -23,6 +23,10 @@ ul {
   list-style: none;
 }
 
+img {
+  width: 100%;
+}
+
 nav {
   text-align: center;
 }
@@ -128,21 +132,33 @@ input.gps {
 .sekki {
   width: 100%;
   display: flex;
+  justify-content: space-around;
   flex-direction: row;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .ko {
-  flex: 1 1;
+  flex: 0 1 450px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
   padding: 10px;
 }
 
+.ko h2 {
+  flex: 0 0 60px;
+}
+
+.sekki .ko-img img {
+  max-height: 600px;
+  max-width: 450px;
+}
+
 .ko-text {
+  flex: 0 0 100px;
   color: gray;
   font-weight: 400;
+  padding-top: 10px;
 }
 
 .ko-text li:nth-of-type(1) {

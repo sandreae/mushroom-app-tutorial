@@ -23,11 +23,11 @@ export const ShowKo: React.FC<Ko> = ({
 
   return (
     <div className="ko">
-      <div>
-        <h2>
-          {name_jp_kanji} {name_en}
-        </h2>
-        <img src={img_url} alt="" style={{ width: '100%' }} />
+      <h2>
+        {name_jp_kanji} {name_en}
+      </h2>
+      <div className="ko-img">
+        <img src={img_url} alt="" />
       </div>
       <div className="ko-text">
         <ul>
