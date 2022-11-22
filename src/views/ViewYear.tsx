@@ -40,14 +40,22 @@ export const ViewYear = () => {
     );
   };
   const koLink = (ko: Ko) => {
+    const isComplete =
+      ko.img_url != '' &&
+      ko.img_description_en != '' &&
+      ko.img_description_jp_kanji != '' &&
+      ko.img_description_jp_kana != '' &&
+      ko.img_description_jp_romaji != '';
+
     const date = new Date(ko.from).toLocaleDateString('en-gb', {
       day: 'numeric',
       month: 'short',
     });
-    return ko.img_url == '' ? (
+
+    return !isComplete ? (
       <li key={ko.id}>
         {date} {ko.name_jp_kanji} {ko.name_en}{' '}
-        <Link to={`/ko/${ko.id}/edit`}>➕</Link>
+        <Link to={`/ko/${ko.id}/edit`}>&#9998;</Link>
       </li>
     ) : (
       <li key={ko.id}>
