@@ -58,7 +58,7 @@ export const EditKo = () => {
     event.preventDefault();
     await updateKo(keyPair, viewId, values);
     window.alert('Updated ko!');
-    navigate('/');
+    navigate(`/ko/${values.id}`);
   };
 
   return (
