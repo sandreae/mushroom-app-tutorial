@@ -63,7 +63,7 @@ export const EditKo = () => {
 
   return (
     <div className="narrow-page">
-      <h2>Edit Ko</h2>
+      <h2>Edit Ko {values['id']}</h2>
       {loading ? (
         'Loading ...'
       ) : (
