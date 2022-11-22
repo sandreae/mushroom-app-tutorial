@@ -145,10 +145,6 @@ input.gps {
   padding: 10px;
 }
 
-.ko h2 {
-  flex: 0 0 60px;
-}
-
 .sekki .ko-img img {
   max-height: 600px;
   max-width: 450px;
@@ -159,17 +155,26 @@ input.gps {
   color: gray;
   font-weight: 400;
   padding-top: 10px;
+  font-size: 0.8em;
 }
 
 .ko-text li:nth-of-type(1) {
   color: black;
   font-weight: 800;
+  font-size: 1.2em;
 }
 
-.ko-text li:nth-of-type(4) {
+.ko-text li:nth-of-type(2) {
+  color: black;
+  font-weight: 800;
+  font-size: 1.3em;
+}
+
+.ko-text li:nth-of-type(5) {
   font-style: italic;
   font-weight: 600;
   color: black;
+  font-size: 1.2em;
 }
 
 

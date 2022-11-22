@@ -31,9 +31,8 @@ export const ShowKo: React.FC<Ko> = ({
       </div>
       <div className="ko-text">
         <ul>
-          <li>
-            {img_description_jp_kanji} {img_description_en}
-          </li>
+          <li>{img_description_en}</li>
+          <li>{img_description_jp_kanji}</li>
           <li>{img_description_jp_kana}</li>
           <li>{img_description_jp_romaji}</li>
           <li>
