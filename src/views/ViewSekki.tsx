@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import html2canvas from 'html2canvas';
 
 import { getSekki } from '../requests';
 import { ShowKo } from '../components/ShowKo';
@@ -27,20 +28,36 @@ export const ViewSekki = () => {
     request();
   }, [id, sekkiDocumentIds]);
 
+  const download = (canvas) => {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `sekki-${id}.png`;
+    a.click();
+  };
+
+  const downloadScreenshot = () =>
+    html2canvas(document.querySelector('#sekki'), { useCORS: true }).then(
+      (canvas) => {
+        download(canvas);
+      },
+    );
+
   return (
     <>
       {loading ? (
         'Loading ...'
       ) : (
         <>
-          <h1>
-            {sekki.fields.name_jp_kanji} {sekki.fields.name_en}
-          </h1>
-          <div className="sekki">
-            <ShowKo {...sekki.fields.ko_01.fields} />
-            <ShowKo {...sekki.fields.ko_02.fields} />
-            <ShowKo {...sekki.fields.ko_03.fields} />
+          <div id="sekki">
+            <h1>{sekki.fields.name_jp_kanji}</h1>
+            <h1>{sekki.fields.name_en}</h1>
+            <div id="ko-list">
+              <ShowKo {...sekki.fields.ko_01.fields} />
+              <ShowKo {...sekki.fields.ko_02.fields} />
+              <ShowKo {...sekki.fields.ko_03.fields} />
+            </div>
           </div>
+          <button onClick={downloadScreenshot}>download</button>
         </>
       )}
     </>
