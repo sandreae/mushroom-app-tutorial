@@ -64,7 +64,7 @@ export const ViewYear = () => {
       <li key={ko.id}>
         {date} {ko.name_jp_kanji} {ko.name_en}{' '}
         <Link to={`/ko/${ko.id}/edit`}>{hasImage ? '🖉' : '+'}</Link>
-        { hasImage ? (<Link to={`/ko/${ko.id}`}>👁</Link>) : ''}
+        {hasImage ? <Link to={`/ko/${ko.id}`}>👁</Link> : ''}
       </li>
     ) : (
       <li key={ko.id}>
