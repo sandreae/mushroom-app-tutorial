@@ -23,16 +23,17 @@ export const ShowKo: React.FC<Ko> = ({
 
   return (
     <div className="ko">
-      <h2>
-        {name_jp_kanji} {name_en}
-      </h2>
+      <div className="ko-title">
+        <h2>{name_jp_kanji}</h2>
+        <h2>{name_en}</h2>
+      </div>
       <div className="ko-img">
         <img src={img_url} alt="" />
       </div>
       <div className="ko-text">
         <ul>
-          <li>{img_description_en}</li>
           <li>{img_description_jp_kanji}</li>
+          <li>{img_description_en}</li>
           <li>{img_description_jp_kana}</li>
           <li>{img_description_jp_romaji}</li>
           <li>

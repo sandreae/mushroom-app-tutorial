@@ -8,7 +8,7 @@ type Props = {
 
 export const App: React.FC<Props> = ({ children }) => {
   return (
-    <div className="app">
+    <div id="app">
       <Header />
       <Main>{children}</Main>
     </div>
