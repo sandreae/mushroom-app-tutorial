@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 h1,
@@ -45,7 +45,7 @@ a {
   padding: 5px;
 }
 
-input[type="submit"],
+input[type='submit'],
 button {
   padding: 10px;
   outline: 0;
@@ -74,7 +74,7 @@ label {
 }
 
 textarea,
-input[type="text"] {
+input[type='text'] {
   width: 95%;
   padding: 10px;
   border-radius: 5px;
@@ -130,22 +130,20 @@ input.gps {
 }
 
 #sekki {
+  padding: 0px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.ko-title h1 {
-  margin: 6px;
+.sekki-name-jp {
+  font-size: 4em;
 }
 
-#sekki h1:first-of-type() {
-  font-size: 3em;
-}
-
-#sekki h1:nth-of-type(2) {
+.sekki-name-en {
   font-size: 2em;
+  margin-bottom: 20px;
 }
 
 #ko-list {
@@ -157,16 +155,15 @@ input.gps {
 }
 
 .ko {
-  flex: 0 1 450px;
+  flex: 0 1 600px;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 10px;
+  padding: 0px;
 }
 
 #ko-list .ko-img img {
-  max-height: 600px;
-  max-width: 450px;
+  max-width: 600px;
 }
 
 .ko-title {
@@ -178,21 +175,24 @@ input.gps {
 }
 
 .ko-title h2:nth-of-type(1) {
-  font-size: 2em;
+  font-size: 2.5em;
+}
+
+.ko-title h2:nth-of-type(2) {
+  font-size: 1.4em;
 }
 
 .ko-text {
-  flex: 0 0 100px;
   color: gray;
   font-weight: 400;
   padding-top: 10px;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .ko-text li:nth-of-type(1) {
   color: black;
   font-weight: 700;
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 .ko-text li:nth-of-type(2) {
@@ -208,7 +208,6 @@ input.gps {
   color: black;
   font-size: 1.2em;
 }
-
 
 .narrow-page {
   width: 100%;
