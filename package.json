@@ -24,7 +24,7 @@
   "dependencies": {
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
-    "html2canvas": "^1.4.1",
+    "html-to-image": "^1.11.1",
     "p2panda-js": "^0.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
