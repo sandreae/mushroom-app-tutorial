@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 
 import { getSekki } from '../requests';
 import { ShowKo } from '../components/ShowKo';
@@ -28,19 +28,21 @@ export const ViewSekki = () => {
     request();
   }, [id, sekkiDocumentIds]);
 
-  const download = (canvas) => {
+  const download = (dataUrl: string) => {
     const a = document.createElement('a');
-    a.href = canvas.toDataURL('image/png');
+    a.href = dataUrl;
     a.download = `sekki-${id}.png`;
     a.click();
   };
 
   const downloadScreenshot = () =>
-    html2canvas(document.querySelector('#sekki'), { useCORS: true }).then(
-      (canvas) => {
-        download(canvas);
-      },
-    );
+    toPng(document.getElementById('sekki'), {
+      backgroundColor: 'white',
+      canvasWidth: 1754,
+      canvasHeight: 1240,
+    }).then(function (dataUrl) {
+      download(dataUrl);
+    });
 
   return (
     <>
@@ -49,8 +51,8 @@ export const ViewSekki = () => {
       ) : (
         <>
           <div id="sekki">
-            <h1>{sekki.fields.name_jp_kanji}</h1>
-            <h1>{sekki.fields.name_en}</h1>
+            <h1 className="sekki-name-jp">{sekki.fields.name_jp_kanji}</h1>
+            <h1 className="sekki-name-en">{sekki.fields.name_en}</h1>
             <div id="ko-list">
               <ShowKo {...sekki.fields.ko_01.fields} />
               <ShowKo {...sekki.fields.ko_02.fields} />
